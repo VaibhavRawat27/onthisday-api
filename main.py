@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from datetime import datetime, timedelta
 import requests
-
+from fastapi.responses import RedirectResponse
 # Rate limiting
 from slowapi import Limiter
 from slowapi.util import get_remote_address
@@ -131,4 +131,8 @@ def on_this_day(request: Request, date: str = None):
     response["meta"]["cached"] = True
 
     return response
+
+@app.get("/")
+def root():
+    return RedirectResponse(url="/docs")
 
